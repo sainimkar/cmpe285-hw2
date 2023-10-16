@@ -1,0 +1,88 @@
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 400px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #2980b9;
+    }
+
+    .stock-info {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .error-message {
+      color: red;
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <form action="/" method="POST" class="input-group">
+      <label for="symbol">Enter Stock Symbol:</label>
+      <input type="text" id="symbol" name="symbol" />
+    </form>
+
+    <button type="submit" class="btn">Calculate</button>
+
+    <div class="stock-info">
+      {% if request.method == "POST" and error == "" %}
+        <b>Company Name:</b> {{companyName}}<br>
+        <b>Time:</b> {{now}}<br>
+        <b>Valuation per Share:</b> ${{twoDaysData}}<br>
+        <b>Value Change:</b> ${{valueChange}}<br>
+        <b>Percent Change:</b> {{percentChange}}%<br>
+      {% endif %}
+
+      {% if request.method == "POST" and error != "" %}
+        <span class="error-message">Error: {{error}}</span>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>
